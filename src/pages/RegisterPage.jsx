@@ -5,15 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-
-  // Agar foydalanuvchi allaqachon ro'yxatdan o'tgan bo'lsa, avtomatik LoginPagega yo'naltirish
-  useEffect(() => {
-    const isRegistered = localStorage.getItem("registered");
-    if (isRegistered) {
-      navigate("/login");
-    }
-  }, [navigate]);
-
   const [formData, setFormData] = useState({
     familia: "",
     ism: "",
@@ -28,6 +19,16 @@ export default function RegisterPage() {
     diabetTuri: "",
   });
 
+  const [menuOpen, setMenuOpen] = useState(false); // agar hamburger kerak bo‘lsa
+
+  // Agar foydalanuvchi allaqachon ro'yxatdan o'tgan bo'lsa, avtomatik LoginPagega yo'naltirish
+  useEffect(() => {
+    const isRegistered = localStorage.getItem("registered");
+    if (isRegistered) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -35,31 +36,31 @@ export default function RegisterPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const values = Object.values(formData);
-    if (values.every((v) => v !== "")) {
+    
+    // Har bir fieldni alohida tekshiramiz
+    if (
+      formData.familia &&
+      formData.ism &&
+      formData.sharif &&
+      formData.day &&
+      formData.month &&
+      formData.year &&
+      formData.vazn &&
+      formData.boy &&
+      formData.diabetYil &&
+      formData.diabetTuri
+    ) {
+      // Barchasi to‘ldirilgan
       toast.success("Ro‘yxatdan muvaffaqiyatli o‘tildi! Login sahifasiga yo‘naltirilmoqda...", {
         position: "top-right",
         autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
       });
-
-      // Ro'yxatdan o'tganligini saqlash
       localStorage.setItem("registered", "true");
-
-      setTimeout(() => {
-        navigate("/login"); // LoginPagega yo'naltiradi
-      }, 2100);
+      setTimeout(() => navigate("/home"), 2100);
     } else {
       toast.error("Iltimos, barcha maydonlarni to‘ldiring", {
         position: "top-right",
         autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
       });
     }
   };
@@ -184,17 +185,18 @@ export default function RegisterPage() {
         >
           Davom etish
         </button>
+
         <div className="text-center mt-4">
-  <p className="text-gray-500">
-    Allaqachon ro‘yxatdan o‘tganmisiz?{" "}
-    <Link
-      to="/login"
-      className="text-purple-600 font-semibold hover:underline"
-    >
-      Loginga o‘tish
-    </Link>
-  </p>
-</div>
+          <p className="text-gray-500">
+            Allaqachon ro‘yxatdan o‘tganmisiz?{" "}
+            <Link
+              to="/login"
+              className="text-purple-600 font-semibold hover:underline"
+            >
+              Loginga o‘tish
+            </Link>
+          </p>
+        </div>
       </form>
       <ToastContainer />
     </div>
