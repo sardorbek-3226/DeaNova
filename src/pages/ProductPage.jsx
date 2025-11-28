@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { FaAppleAlt, FaComments, FaHome, FaVideo } from "react-icons/fa";
+import { FaAppleAlt, FaBars, FaComments, FaHome, FaTimes, FaVideo } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-// --- Mahsulotlar ---
+// --- Mahsulotlar data ---
 const dukkaklik = [
   { name: "Quritilgan dukkaklilar (loviya, noʻxat, mosh)", nb: "1 osh qoshiq", weight: "20 g" },
   { name: "Gaynatilgan dukkaklilar", nb: "3 osh qoshiq", weight: "50 g" },
@@ -110,6 +110,7 @@ const shirinlik = [
 
 // --- Komponent ---
 export default function ProductsPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
 
   const renderSection = (title, items) => {
@@ -117,15 +118,17 @@ export default function ProductsPage() {
       item.name.toLowerCase().includes(search.toLowerCase())
     );
 
+    if (filtered.length === 0) return null;
+
     return (
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-4">{title}</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4">{title}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filtered.map((item, index) => (
             <div key={index} className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition duration-200">
-              <h3 className="font-semibold text-lg">{item.name}</h3>
-              <p className="text-gray-400">{item.nb} {item.weight && `- ${item.weight}`}</p>
-              {item.calories && <p className="text-gray-500">Kaloriy: {item.calories}</p>}
+              <h3 className="font-semibold text-lg sm:text-xl">{item.name}</h3>
+              <p className="text-gray-500 text-sm sm:text-base">{item.nb}{item.weight && ` - ${item.weight}`}</p>
+              {item.calories && <p className="text-gray-400 text-sm sm:text-base">Kaloriy: {item.calories}</p>}
             </div>
           ))}
         </div>
@@ -136,46 +139,78 @@ export default function ProductsPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Navbar */}
-      <nav className="bg-white shadow-lg p-4 flex justify-between items-center sticky top-0 z-50">
-  <h1 className="text-2xl font-bold text-purple-600">DiaNova</h1>
-  <div className="flex gap-6 items-center">
-    <Link to="/home" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
-      <FaHome className="text-2xl" />
-      <span className="text-sm">Bosh sahifa</span>
-    </Link>
-    <Link to="/chatbot" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
-      <FaComments className="text-2xl" />
-      <span className="text-sm">ChatBot</span>
-    </Link>
-    <Link to="/video" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
-      <FaVideo className="text-2xl" />
-      <span className="text-sm">Video</span>
-    </Link>
-    <Link to="/products" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
-      <FaAppleAlt className="text-2xl" />
-      <span className="text-sm">Mahsulotlar</span>
-    </Link>
+      <nav className="bg-white shadow-lg sticky top-0 z-50">
+      <div className="flex justify-between items-center p-4">
+        <h1 className="text-2xl font-bold text-purple-600">DiaNova</h1>
 
-    {/* Chiqish tugmasi */}
-    <Link 
-      to="/" 
-      className="ml-4 px-4 py-2 bg-[#6E11B0] text-white rounded-lg hover:#6E11B0 transition"
-    >
-      Chiqish
-    </Link>
-  </div>
-</nav>
+        {/* Hamburger icon */}
+        <div className="sm:hidden">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <FaTimes className="text-2xl text-purple-600" /> : <FaBars className="text-2xl text-purple-600" />}
+          </button>
+        </div>
 
+        {/* Desktop menu */}
+        <div className="hidden sm:flex gap-6 items-center">
+          <Link to="/home" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
+            <FaHome className="text-2xl" />
+            <span className="text-sm">Bosh sahifa</span>
+          </Link>
+          <Link to="/chatbot" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
+            <FaComments className="text-2xl" />
+            <span className="text-sm">ChatBot</span>
+          </Link>
+          <Link to="/video" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
+            <FaVideo className="text-2xl" />
+            <span className="text-sm">Video</span>
+          </Link>
+          <Link to="/products" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
+            <FaAppleAlt className="text-2xl" />
+            <span className="text-sm">Mahsulotlar</span>
+          </Link>
+          <Link 
+            to="/" 
+            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
+          >
+            Chiqish
+          </Link>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="sm:hidden flex flex-col gap-4 bg-white p-4 border-t border-gray-200">
+          <Link to="/home" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
+            <FaHome /> Bosh sahifa
+          </Link>
+          <Link to="/chatbot" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
+            <FaComments /> ChatBot
+          </Link>
+          <Link to="/video" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
+            <FaVideo /> Video
+          </Link>
+          <Link to="/products" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
+            <FaAppleAlt /> Mahsulotlar
+          </Link>
+          <Link 
+            to="/" 
+            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
+          >
+            Chiqish
+          </Link>
+        </div>
+      )}
+    </nav>
 
       {/* Page content */}
-      <div className="p-6 pt-6">
-        <h1 className="text-3xl font-bold mb-6">Mahsulotlar</h1>
+      <div className="p-4 sm:p-6">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center sm:text-left">Mahsulotlar</h1>
 
         {/* Qidirish inputi */}
         <input
           type="text"
           placeholder="Mahsulot qidirish..."
-          className="w-full p-3 mb-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 mb-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
