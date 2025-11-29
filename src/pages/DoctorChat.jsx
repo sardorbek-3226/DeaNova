@@ -37,21 +37,35 @@ export default function DoctorChat() {
     "Oxirgi 24 soat ichida siz bilan aloqaga chiqaman.",
   ];
 
+  // -------------- LOCAL STORAGE: Chatni yuklash --------------
+  useEffect(() => {
+    const saved = localStorage.getItem(`chat_${id}`);
+    if (saved) {
+      setMessages(JSON.parse(saved));
+    }
+  }, [id]);
+
+  // -------------- LOCAL STORAGE: Chatni saqlash --------------
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem(`chat_${id}`, JSON.stringify(messages));
+    }
+  }, [messages, id]);
+
   const sendMessage = () => {
     if (!input.trim() || isWaiting) return;
-
-    // Foydalanuvchi xabarini qo'shish
-    setMessages((prev) => [...prev, { sender: "You", text: input }]);
+  
+    const userMessage = { sender: "You", text: input };
     setInput("");
     setIsWaiting(true);
-
-    // 1-chi xabar darhol
+  
+    // User message + doctor 1st message bitta marta qo‘shiladi
     setMessages((prev) => [
       ...prev,
+      userMessage,
       { sender: doctor.name, text: doctorResponses[0] },
     ]);
-
-    // 2-chi xabar 2 soniyadan keyin
+  
     setTimeout(() => {
       setMessages((prev) => [
         ...prev,
@@ -60,6 +74,7 @@ export default function DoctorChat() {
       setIsWaiting(false);
     }, 2000);
   };
+  
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
