@@ -8,7 +8,6 @@ const navigate = useNavigate();
 return ( <div className="min-h-screen bg-gradient-to-b from-purple-50 to-blue-50 flex flex-col items-center justify-center px-4 py-10">
 {/* Logo + App Name */} <div className="flex flex-col items-center mb-10"> <h1 className="text-4xl font-bold text-purple-600 mb-2">DiaNova</h1> <p className="text-gray-700 text-center mb-2 text-lg"> Sog‘lom hayot uchun ishonchli hamrohingiz</p> <p className="text-gray-500 text-center mb-1"> Diabetni nazorat qiling, hayotdan zavqlaning!</p> <p className="text-gray-500 text-center text-sm">Har kun yangi imkoniyat!</p> </div>
 
-```
   {/* Cards */}
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 w-full max-w-6xl">
     <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition flex flex-col items-center text-center">

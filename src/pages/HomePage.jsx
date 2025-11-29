@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
-import { FaHome, FaComments, FaVideo, FaAppleAlt, FaStar, FaBars, FaTimes } from "react-icons/fa";
+import { FaHome, FaComments, FaVideo, FaAppleAlt, FaStar, FaBars, FaTimes, FaClock } from "react-icons/fa";
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,7 +41,8 @@ export default function HomePage() {
         {/* Hamburger icon */}
         <div className="sm:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <FaTimes className="text-2xl text-purple-600" /> : <FaBars className="text-2xl text-purple-600" />}
+            {menuOpen ? <FaTimes
+             className="text-2xl text-purple-600" /> : <FaBars className="text-2xl text-purple-600" />}
           </button>
         </div>
 
@@ -63,6 +64,10 @@ export default function HomePage() {
             <FaAppleAlt className="text-2xl" />
             <span className="text-sm">Mahsulotlar</span>
           </Link>
+          <Link to="/premium" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
+  <FaStar className="text-2xl" />
+  <span className="text-sm">Premium</span>
+</Link>
           <Link 
             to="/" 
             className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"

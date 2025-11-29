@@ -87,9 +87,16 @@ export default function ChatBotPage() {
 
   const handleImageSubmit = () => {
     if (!image) return;
-    const newNutrition = getRandomNutrition();
+  
+    // Agar nutrition mavjud bo'lsa va rasm o'zgarmagan bo'lsa, hech narsa qilmaymiz
+    if (nutrition && nutrition.imageName === image.name) return;
+  
+    const newNutrition = {
+      ...getRandomNutrition(),
+      imageName: image.name, // rasmni aniqlash uchun
+    };
     setNutrition(newNutrition);
-
+  
     const adviceList = [
       `Ovqat kaloriyasi: ${newNutrition.calories} kcal`,
       `Protein miqdori: ${newNutrition.protein} g`,
@@ -97,10 +104,10 @@ export default function ChatBotPage() {
       `Uglevod: ${newNutrition.carbs} g`,
       "AI Tavsiya: Ovqat tarkibini balanslash uchun maslahatlar quyida.",
     ];
-
+  
     setAdvice((prev) => [...prev, ...adviceList]);
   };
-
+  
   const aiSuggestions = [
     "Ko‘proq sabzavot iste’mol qiling",
     "Proteinni oshiring (go‘sht, tuxum, sut mahsulotlari)",
