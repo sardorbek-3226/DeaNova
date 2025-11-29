@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
-import { FaHome, FaComments, FaVideo, FaAppleAlt, FaStar, FaBars, FaTimes, FaClock } from "react-icons/fa";
+import {
+  FaHome,
+  FaComments,
+  FaVideo,
+  FaAppleAlt,
+  FaStar,
+  FaBars,
+  FaTimes,
+  FaClock,
+} from "react-icons/fa";
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,72 +44,79 @@ export default function HomePage() {
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-blue-50 flex flex-col">
       {/* Navbar */}
       <nav className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="flex justify-between items-center p-4">
-        <h1 className="text-2xl font-bold text-purple-600">DiaNova</h1>
+  <div className="flex justify-between items-center p-4">
+    <h1 className="text-2xl font-bold text-purple-600">DiaNova</h1>
 
-        {/* Hamburger icon */}
-        <div className="sm:hidden">
-          <button onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <FaTimes
-             className="text-2xl text-purple-600" /> : <FaBars className="text-2xl text-purple-600" />}
-          </button>
-        </div>
+    {/* Hamburger icon */}
+    <div className="sm:hidden">
+      <button onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? (
+          <FaTimes className="text-2xl text-purple-600" />
+        ) : (
+          <FaBars className="text-2xl text-purple-600" />
+        )}
+      </button>
+    </div>
 
-        {/* Desktop menu */}
-        <div className="hidden sm:flex gap-6 items-center">
-          <Link to="/home" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
-            <FaHome className="text-2xl" />
-            <span className="text-sm">Bosh sahifa</span>
-          </Link>
-          <Link to="/chatbot" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
-            <FaComments className="text-2xl" />
-            <span className="text-sm">ChatBot</span>
-          </Link>
-          <Link to="/video" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
-            <FaVideo className="text-2xl" />
-            <span className="text-sm">Video</span>
-          </Link>
-          <Link to="/products" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
-            <FaAppleAlt className="text-2xl" />
-            <span className="text-sm">Mahsulotlar</span>
-          </Link>
-          <Link to="/premium" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
-  <FaStar className="text-2xl" />
-  <span className="text-sm">Premium</span>
-</Link>
-          <Link 
-            to="/" 
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
-          >
-            Chiqish
-          </Link>
-        </div>
-      </div>
+    {/* Desktop menu */}
+    <div className="hidden sm:flex gap-6 items-center">
+      <Link to="/home" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
+        <FaHome className="text-2xl" />
+        <span className="text-sm">Bosh sahifa</span>
+      </Link>
+      <Link to="/chatbot" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
+        <FaComments className="text-2xl" />
+        <span className="text-sm">ChatBot</span>
+      </Link>
+      <Link to="/video" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
+        <FaVideo className="text-2xl" />
+        <span className="text-sm">Video</span>
+      </Link>
+      <Link to="/products" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
+        <FaAppleAlt className="text-2xl" />
+        <span className="text-sm">Mahsulotlar</span>
+      </Link>
+      <Link to="/premium" className="flex flex-col items-center text-purple-600 hover:text-purple-800">
+        <FaStar className="text-2xl" />
+        <span className="text-sm">Premium</span>
+      </Link>
+      <Link
+        to="/"
+        className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
+      >
+        Chiqish
+      </Link>
+    </div>
+  </div>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="sm:hidden flex flex-col gap-4 bg-white p-4 border-t border-gray-200">
-          <Link to="/home" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
-            <FaHome /> Bosh sahifa
-          </Link>
-          <Link to="/chatbot" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
-            <FaComments /> ChatBot
-          </Link>
-          <Link to="/video" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
-            <FaVideo /> Video
-          </Link>
-          <Link to="/products" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
-            <FaAppleAlt /> Mahsulotlar
-          </Link>
-          <Link 
-            to="/" 
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
-          >
-            Chiqish
-          </Link>
-        </div>
-      )}
-    </nav>
+  {/* Mobile menu */}
+  {menuOpen && (
+    <div className="sm:hidden flex flex-col gap-4 bg-white p-4 border-t border-gray-200">
+      <Link to="/home" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
+        <FaHome /> Bosh sahifa
+      </Link>
+      <Link to="/chatbot" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
+        <FaComments /> ChatBot
+      </Link>
+      <Link to="/video" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
+        <FaVideo /> Video
+      </Link>
+      <Link to="/products" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
+        <FaAppleAlt /> Mahsulotlar
+      </Link>
+      <Link to="/premium" className="flex items-center gap-2 text-purple-600 hover:text-purple-800">
+        <FaStar /> Premium
+      </Link>
+      <Link
+        to="/"
+        className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
+      >
+        Chiqish
+      </Link>
+    </div>
+  )}
+</nav>
+
 
       {/* Asosiy kontent */}
       <main className="flex-1 p-4 sm:p-6 flex flex-col items-center gap-10">
